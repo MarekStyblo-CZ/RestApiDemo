@@ -12,7 +12,7 @@ namespace RestApiDemo.Controllers.v1
     /// Version v1 of the API
     /// </summary>
     //[Route("api/v{version:apiVersion}/[controller]")]
-    [Route("api/v1.0/[controller]")]
+    [Route("api/v1.0")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -24,11 +24,26 @@ namespace RestApiDemo.Controllers.v1
         }
 
         /// <summary>
+        /// Returns product according to its id
+        /// </summary>
+        /// <param name="productId">PK</param>
+        /// <returns></returns>
+        [HttpGet("products/{productId}")]
+        public async Task<ActionResult> GetProduct(int productId)
+        {
+            var product = await _productService.GetByIdAsync(productId);
+            if (product == null)
+                return NotFound();
+            else
+                return Ok(product);
+        }
+
+        /// <summary>
         /// Returns whole list of products from db
         /// </summary>
         /// <returns></returns>
-        [HttpGet()]
-        public async Task<ActionResult> Get()
+        [HttpGet("products")]
+        public async Task<ActionResult> GetProducts()
         {
             var products = await _productService.GetAllAsync();
             return Ok(products);

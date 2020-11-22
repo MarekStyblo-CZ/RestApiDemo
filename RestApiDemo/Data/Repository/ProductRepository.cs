@@ -20,6 +20,12 @@ namespace RestApiDemo.Data.Repository
             _db = dbContext;            
         }
 
+        public async Task<Product> GetByIdAsync(int productId)
+        {
+            return await this._db.Products
+                .FirstOrDefaultAsync(p => p.Id == productId);
+        }
+
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await this._db.Products

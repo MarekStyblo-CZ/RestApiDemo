@@ -25,6 +25,27 @@ namespace RestApiDemo.Services
             _mapper = mapper;
         }
 
+        public async Task<ProductDto> GetByIdAsync(int productId)
+        {
+            if (productId < 1)
+            {
+                _logger.LogDebug("productId < 1", productId);
+                throw new ArgumentException("productId < 1"); //#todo
+            }
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            if (product != null)
+            {
+                _logger.LogDebug($"Found product with Id:{productId}", product);
+                return _mapper.Map(product, new ProductDto());
+            }
+            else
+            {
+                _logger.LogDebug($"product with Id:{productId} not found", productId);
+                return null;
+            }
+        }
+
         public async Task<List<ProductDto>> GetAllAsync()
         {
             var products = (await _productRepository.GetAllAsync()).ToList();

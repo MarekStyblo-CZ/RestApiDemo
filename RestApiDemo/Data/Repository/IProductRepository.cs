@@ -8,6 +8,7 @@ namespace RestApiDemo.Data.Repository
 {
     public interface IProductRepository
     {
+        Task<Product> GetByIdAsync(int productId);
         Task<IEnumerable<Product>> GetAllAsync();
     }
 }
