@@ -1,4 +1,5 @@
-﻿using RestApiDemo.Models.DbSets;
+﻿using Microsoft.EntityFrameworkCore;
+using RestApiDemo.Models.DbSets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,62 @@ namespace RestApiDemo.Data.TestDataSet
             DemoProducts.Add(new Product { Id = 20, Name = "Notebook Hp 2010", ImgUri = "products/notebooks/HP/2010/img.jpg", Price = 7400, Description = "Hp 2010, 2,6 Ghz processor" });
             DemoProducts.Add(new Product { Id = 21, Name = "Notebook Hp 2110", ImgUri = "products/notebooks/HP/2110/img.jpg", Price = 7500, Description = "Hp 2110, 2,7 Ghz processor" });
 
+        }
+
+        /// <summary>
+        /// Get dbContext for Sql database
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
+        public SqlDbContext GetDbContext(string connectionString)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<SqlDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+            return new SqlDbContext(optionsBuilder.Options);
+        }
+
+        /// <summary>
+        /// Get dbContext for InMemory database
+        /// </summary>
+        /// <returns></returns>
+        public SqlDbContext GenerateInMemoryTestData()
+        {
+            var options = new DbContextOptionsBuilder<SqlDbContext>()
+            .UseInMemoryDatabase(databaseName: "ProductDbInMemory")
+            .Options;
+
+            // Insert seed data into the database using one instance of the context
+            var dbContext = new SqlDbContext(options);
+
+            //remove all data if there are already some from previous data
+            dbContext.Products.ForEachAsync(p => dbContext.Remove(p));
+            dbContext.SaveChanges();
+
+            //regenerate data for test
+            DemoProducts.ForEach(p => dbContext.Products.Add(p));
+            dbContext.SaveChanges();
+
+            return dbContext;
+        }
+
+        /// <summary>
+        /// Get dbContext for InMemory database which is empty 
+        /// </summary>
+        /// <returns></returns>
+        public SqlDbContext GenerateInMemoryTestDataEmpty()
+        {
+            var options = new DbContextOptionsBuilder<SqlDbContext>()
+            .UseInMemoryDatabase(databaseName: "ProductDbInMemory")
+            .Options;
+
+            // Insert seed data into the database using one instance of the context
+            var dbContext = new SqlDbContext(options);
+
+            //remove all data if there are already some from previous test
+            dbContext.Products.ForEachAsync(p => dbContext.Remove(p));
+            dbContext.SaveChanges();
+
+            return dbContext;
         }
     }
 }
