@@ -14,6 +14,7 @@ namespace RestApiDemo.Controllers.v2
     //[Route("api/v{version:apiVersion}/[controller]")]
     [Route("api/v2.0")]
     [ApiController]
+    [ApiVersion("2.0")]
     public class ProductsController : ControllerBase
     {
         private const int DEFAULT_PAGE_SIZE = 10;

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestApiDemo</name>
+    </assembly>
+    <members>
+        <member name="T:RestApiDemo.Contracts.v1.ModelDtos.ProductDto">
+            <summary>
+            API contract Model of product accessible via api
+            </summary>
+        </member>
+        <member name="P:RestApiDemo.Contracts.v1.ModelDtos.ProductDto.Id">
+            <summary>
+            Id (PK)
+            </summary>
+        </member>
+        <member name="P:RestApiDemo.Contracts.v1.ModelDtos.ProductDto.Name">
+            <summary>
+            Name of product
+            </summary>
+        </member>
+        <member name="P:RestApiDemo.Contracts.v1.ModelDtos.ProductDto.ImgUri">
+            <summary>
+            Url to the product image
+            </summary>
+        </member>
+        <member name="P:RestApiDemo.Contracts.v1.ModelDtos.ProductDto.Price">
+            <summary>
+            Price of the product
+            </summary>
+        </member>
+        <member name="P:RestApiDemo.Contracts.v1.ModelDtos.ProductDto.Description">
+            <summary>
+            Description of the product
+            </summary>
+        </member>
+        <member name="T:RestApiDemo.Controllers.v1.ProductsController">
+            <summary>
+            Version v1 of the API
+            </summary>
+        </member>
+        <member name="M:RestApiDemo.Controllers.v1.ProductsController.GetProduct(System.Int32)">
+            <summary>
+            Returns product according to its id
+            </summary>
+            <param name="productId">PK</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestApiDemo.Controllers.v1.ProductsController.GetProducts">
+            <summary>
+            Returns whole list of products from db
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestApiDemo.Controllers.v1.ProductsController.UpdateProduct(System.Int32,System.String)">
+            <summary>
+            Updates the product's description
+            </summary>
+            <param name="productId">PK</param>
+            <param name="productDescr">Updated description</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestApiDemo.Controllers.v2.ProductsController">
+            <summary>
+            Version v2 of the API
+            </summary>
+        </member>
+        <member name="M:RestApiDemo.Controllers.v2.ProductsController.GetProducts(System.Int32,System.Int32)">
+            <summary>
+            Returns product list paged
+            </summary>
+            <param name="pageNr">Starting page</param>
+            <param name="pageSize">Nr of products on page</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestApiDemo.Data.Repository.ProductRepository">
+            <summary>
+            Repository to centralise the queries for products
+            </summary>
+        </member>
+        <member name="T:RestApiDemo.Services.IProductService">
+            <summary>
+            Intermediate service handling data between repository and controller
+            </summary>
+        </member>
+        <member name="T:RestApiDemo.Services.LoggingService">
+            <summary>
+            Helper class for logging on the production in the future..
+            </summary>
+        </member>
+    </members>
+</doc>

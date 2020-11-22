@@ -14,6 +14,7 @@ namespace RestApiDemo.Controllers.v1
     //[Route("api/v{version:apiVersion}/[controller]")]
     [Route("api/v1.0")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
