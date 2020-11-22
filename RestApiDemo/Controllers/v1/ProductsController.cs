@@ -24,18 +24,14 @@ namespace RestApiDemo.Controllers.v1
         }
 
         /// <summary>
-        /// Returns product according to its ID (PK)
+        /// Returns whole list of products from db
         /// </summary>
-        /// <param name="productId">PK</param>
         /// <returns></returns>
-        [HttpGet("products/{productId}")]
-        public async Task<ActionResult> GetProduct(int productId)
+        [HttpGet()]
+        public async Task<ActionResult> Get()
         {
-            var product = await _productService.GetByIdAsync(productId);
-            if (product == null)
-                return NotFound();
-            else
-                return Ok(product);
+            var products = await _productService.GetAllAsync();
+            return Ok(products);
         }
     }
 }

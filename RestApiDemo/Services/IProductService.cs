@@ -11,6 +11,6 @@ namespace RestApiDemo.Services
     /// </summary>
     public interface IProductService
     {
-        Task<ProductDto> GetByIdAsync(int productId);
+        Task<List<ProductDto>> GetAllAsync();
     }
 }

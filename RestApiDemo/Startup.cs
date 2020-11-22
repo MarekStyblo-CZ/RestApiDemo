@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestApiDemo.Data;
+using RestApiDemo.Data.Repository;
+using RestApiDemo.Services;
 using RestApiDemo.Settings;
 
 namespace RestApiDemo
@@ -36,6 +38,11 @@ namespace RestApiDemo
             services.AddAutoMapper(typeof(AutoMapperProfileProduct));
 
             services.AddControllers();
+
+            services.AddSingleton<ILoggingService, LoggingService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
