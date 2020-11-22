@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Contracts\v2\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Controllers\v2\" />
   </ItemGroup>
 
   <ItemGroup>
