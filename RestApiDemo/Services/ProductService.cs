@@ -55,6 +55,17 @@ namespace RestApiDemo.Services
             return productDtos;
         }
 
+        public async Task<ProductDto> UpdateDescrAsync(int productId, string newDescription)
+        {
+            var updatedProduct = await _productRepository.UpdateDescrAsync(productId, newDescription);
+            if (updatedProduct == null)
+                _logger.LogDebug($"Product id:{productId} not found", newDescription); //#todo
+            else
+                _logger.LogDebug($"Product id:{productId} updated with new description", newDescription); //#todo
+
+            return _mapper.Map(updatedProduct, new ProductDto());
+        }
+
     }
 }
        

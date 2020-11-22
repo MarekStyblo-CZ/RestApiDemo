@@ -33,6 +33,21 @@ namespace RestApiDemo.Data.Repository
                 .ToListAsync();
         }
 
+        public async Task<Product> UpdateDescrAsync(int productId, string newDescription)
+        {
+            var productToUpdate = await this._db.Products
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (productToUpdate != null) // item found
+            {
+                productToUpdate.Description = newDescription;
+                await this._db.SaveChangesAsync();
+                return productToUpdate;
+            }
+            else
+                return null;
+        }
+
 
     }
 }

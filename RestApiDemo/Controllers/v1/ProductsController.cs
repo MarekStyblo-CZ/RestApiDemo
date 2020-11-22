@@ -48,5 +48,23 @@ namespace RestApiDemo.Controllers.v1
             var products = await _productService.GetAllAsync();
             return Ok(products);
         }
+
+        /// <summary>
+        /// Updates the product's description
+        /// </summary>
+        /// <param name="productId">PK</param>
+        /// <param name="productDescr">Updated description</param>
+        /// <returns></returns>
+        [HttpPut("products/{productId}")]
+        public async Task<IActionResult> UpdateProduct(int productId, string productDescr)
+        {
+            var productToUpdate = await _productService.UpdateDescrAsync(productId, productDescr);
+            if (productToUpdate == null)
+                return BadRequest();
+
+            //return NoContent();
+            return Accepted();
+        }
+
     }
 }

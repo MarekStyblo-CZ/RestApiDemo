@@ -13,5 +13,6 @@ namespace RestApiDemo.Services
     {
         Task<ProductDto> GetByIdAsync(int productId);
         Task<List<ProductDto>> GetAllAsync();
+        Task<ProductDto> UpdateDescrAsync(int productId, string newDescription);
     }
 }

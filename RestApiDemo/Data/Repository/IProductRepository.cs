@@ -10,5 +10,6 @@ namespace RestApiDemo.Data.Repository
     {
         Task<Product> GetByIdAsync(int productId);
         Task<IEnumerable<Product>> GetAllAsync();
+        Task<Product> UpdateDescrAsync(int productId, string newDescription);
     }
 }
