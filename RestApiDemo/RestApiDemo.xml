@@ -78,6 +78,25 @@
             Repository to centralise the queries for products
             </summary>
         </member>
+        <member name="M:RestApiDemo.Data.TestDataSet.TestData.GetDbContext(System.String)">
+            <summary>
+            Get dbContext for Sql database
+            </summary>
+            <param name="connectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestApiDemo.Data.TestDataSet.TestData.GenerateInMemoryTestData">
+            <summary>
+            Get dbContext for InMemory database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestApiDemo.Data.TestDataSet.TestData.GenerateInMemoryTestDataEmpty">
+            <summary>
+            Get dbContext for InMemory database which is empty 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:RestApiDemo.Services.IProductService">
             <summary>
             Intermediate service handling data between repository and controller
