@@ -19,6 +19,7 @@ namespace RestApiDemo.Models.DbSets
         public string ImgUri { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,4)")] //https://mattferderer.com/entity-framework-no-type-was-specified-for-the-decimal-column
         public decimal Price { get; set; }
 
         public string Description { get; set; }

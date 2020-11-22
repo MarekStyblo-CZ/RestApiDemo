@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,6 +34,7 @@ namespace RestApiDemo.Contracts.v1.ModelDtos
         /// Price of the product
         /// </summary>
         [Required]
+        [Column(TypeName = "decimal(18,4)")] //https://mattferderer.com/entity-framework-no-type-was-specified-for-the-decimal-column
         public decimal Price { get; set; }
 
         /// <summary>
