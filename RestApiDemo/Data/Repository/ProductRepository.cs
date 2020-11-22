@@ -33,6 +33,16 @@ namespace RestApiDemo.Data.Repository
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Product>> GetAllPagedAsync(int pageNr, int pageSize)
+        {
+            return await this._db.Products
+                .OrderBy(p => p.Id) //get same ordering for tests
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .OrderBy(p => p.Id)
+                .ToListAsync();
+        }
+
         public async Task<Product> UpdateDescrAsync(int productId, string newDescription)
         {
             var productToUpdate = await this._db.Products

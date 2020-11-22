@@ -55,6 +55,27 @@ namespace RestApiDemo.Services
             return productDtos;
         }
 
+        public async Task<IEnumerable<ProductDto>> GetAllPagedAsync(int pageNr, int pageSize)
+        {
+            if (pageNr < 1)
+            {
+                _logger.LogDebug("pageNr < 1", pageNr);
+                throw new ArgumentException("pageNr < 1");
+            }
+            if (pageSize < 1)
+            {
+                _logger.LogDebug("pageSize < 1", pageNr);
+                throw new ArgumentException("pageSize < 1");
+            }
+
+            var productsPaged = (await _productRepository.GetAllPagedAsync(pageNr, pageSize)).ToList();
+            _logger.LogDebug("Retrieved {Count} products", productsPaged.Count); //#todo
+
+            var productDtos = new List<ProductDto>();
+            productsPaged.ForEach(p => productDtos.Add(_mapper.Map(p, new ProductDto())));
+            return productDtos;
+        }
+
         public async Task<ProductDto> UpdateDescrAsync(int productId, string newDescription)
         {
             var updatedProduct = await _productRepository.UpdateDescrAsync(productId, newDescription);

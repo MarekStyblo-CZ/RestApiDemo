@@ -13,6 +13,7 @@ namespace RestApiDemo.Services
     {
         Task<ProductDto> GetByIdAsync(int productId);
         Task<List<ProductDto>> GetAllAsync();
+        Task<IEnumerable<ProductDto>> GetAllPagedAsync(int pageNr, int pageSize);
         Task<ProductDto> UpdateDescrAsync(int productId, string newDescription);
     }
 }
