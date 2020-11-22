@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestApiDemo.Data;
+using RestApiDemo.Settings;
 
 namespace RestApiDemo
 {
@@ -30,6 +32,8 @@ namespace RestApiDemo
             services.AddDbContext<SqlDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SqlDbConnection")));
+
+            services.AddAutoMapper(typeof(AutoMapperProfileProduct));
 
             services.AddControllers();
         }
