@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
+using RestApiDemo.Contracts.v1.ModelDtos;
 using RestApiDemo.Data.Repository;
 using RestApiDemo.Data.TestDataSet;
 using RestApiDemo.Models.DbSets;
@@ -44,7 +45,7 @@ namespace RestApiDemo.Test
                     break;
                 case "MEMORY":
                     var repoMem = new ProductRepository(new TestData().GenerateInMemoryTestData(), _mapper);
-                    _sut = new ProductService(repoMem, _logger.Object, _mapper); //access moq data
+                    _sut = new ProductService(repoMem, _logger.Object, _mapper); //access moq data through in memory db
                     break;
                 default:
                     throw new ArgumentException($"Unknown data source. Requested:{DATA_SOURCE}. Known options: [DB,MEMORY] ");
@@ -80,7 +81,7 @@ namespace RestApiDemo.Test
 
         [Theory]
         [InlineData(100)]
-        public async Task GetByIdAsync_ShouldReturnNothing_WhenProductDoesNotExists(int productId)
+        public async Task GetByIdAsync_ShouldReturnNull_WhenProductDoesNotExists(int productId)
         {
             //arrange
             //_productRepoMock.Setup(p => p.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(() => null);
@@ -120,7 +121,7 @@ namespace RestApiDemo.Test
         public async Task GetAllAsync_ShouldReturnEmptyList_WhenThereAreNoData()
         {
             //arrange
-            var expectedProducts = new List<Product>();
+            var expectedProducts = new List<ProductDto>();
             //hard switch to just inmemory db to avoid deleting whole data set in case sql db data source selected 
             var inMemoryDbSut = new ProductService(new ProductRepository(new TestData().GenerateInMemoryTestDataEmpty(), _mapper), _logger.Object, _mapper); //access moq data
 
@@ -179,11 +180,26 @@ namespace RestApiDemo.Test
         }
 
         [Theory]
+        [InlineData(4, 10)]
+        public async Task GetAllPagedAsync_ShouldReturnEmptyList_WhenOutOfDataLimits(int pageNr, int pageSize)
+        {
+            //arrange
+            var expectedProducts = new List<ProductDto>();
+
+            //act
+            var receivedProducts = (await _sut.GetAllPagedAsync(pageNr, pageSize)).ToList();
+
+            //assert
+            Assert.Equal(expectedProducts.Count(), receivedProducts.Count());
+                        
+        }
+
+        [Theory]
         [InlineData(1, 2)]
         public async Task GetAllPagedAsync_ShouldReturnEmptyList_WhenThereAreNoData(int pageNr, int pageSize)
         {
             //arrange
-            var expectedProducts = new List<Product>();
+            var expectedProducts = new List<ProductDto>();
             //hard switch to just inmemory db to avoid deleting whole data set in case sql db data source selected 
             var inMemoryDbSut = new ProductService(new ProductRepository(new TestData().GenerateInMemoryTestDataEmpty(), _mapper), _logger.Object, _mapper); //access moq data
 
