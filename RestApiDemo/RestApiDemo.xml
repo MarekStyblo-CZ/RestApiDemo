@@ -65,12 +65,12 @@
             Version v2 of the API
             </summary>
         </member>
-        <member name="M:RestApiDemo.Controllers.v2.ProductsController.GetProducts(System.Int32,System.Int32)">
+        <member name="M:RestApiDemo.Controllers.v2.ProductsController.GetProductsPaged(System.Int32,System.Int32)">
             <summary>
             Returns product list paged
             </summary>
             <param name="pageNr">Starting page</param>
-            <param name="pageSize">Nr of products on page</param>
+            <param name="pageSize">Products per page (Default:10)</param>
             <returns></returns>
         </member>
         <member name="T:RestApiDemo.Data.Repository.ProductRepository">

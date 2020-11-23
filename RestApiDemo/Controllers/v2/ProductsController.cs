@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestApiDemo.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace RestApiDemo.Controllers.v2
@@ -26,13 +27,21 @@ namespace RestApiDemo.Controllers.v2
         /// Returns product list paged
         /// </summary>
         /// <param name="pageNr">Starting page</param>
-        /// <param name="pageSize">Nr of products on page</param>
+        /// <param name="pageSize">Products per page (Default:10)</param>
         /// <returns></returns>
-        [HttpGet("products")]
-        public async Task<ActionResult> GetProducts(int pageNr, int pageSize = DEFAULT_PAGE_SIZE)
+        [HttpGet("products/{pageNr}")]
+        public async Task<ActionResult> GetProductsPaged(int pageNr, int pageSize = DEFAULT_PAGE_SIZE)
         {
-            var products = await _productService.GetAllPagedAsync(pageNr, pageSize);
-            return Ok(products);
+            try
+            {
+                var products = await _productService.GetAllPagedAsync(pageNr, pageSize);
+                return Ok(products);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
     }
 }

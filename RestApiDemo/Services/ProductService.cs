@@ -78,6 +78,12 @@ namespace RestApiDemo.Services
 
         public async Task<ProductDto> UpdateDescrAsync(int productId, string newDescription)
         {
+            if (productId < 1)
+            {
+                _logger.LogDebug("productId < 1", productId);
+                throw new ArgumentException("productId < 1");
+            }
+
             var updatedProduct = await _productRepository.UpdateDescrAsync(productId, newDescription);
             if (updatedProduct == null)
                 _logger.LogDebug($"Product id:{productId} not found", newDescription); //#todo

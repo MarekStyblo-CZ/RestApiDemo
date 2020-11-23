@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestApiDemo.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace RestApiDemo.Controllers.v1
@@ -28,12 +29,20 @@ namespace RestApiDemo.Controllers.v1
         [HttpGet("products/{productId}")]
         public async Task<ActionResult> GetProduct(int productId)
         {
-            var product = await _productService.GetByIdAsync(productId);
-            if (product == null)
-                return NotFound();
-            else
-                return Ok(product);
+            try
+            {
+                var product = await _productService.GetByIdAsync(productId);
+                if (product == null)
+                    return NotFound();
+                else
+                    return Ok(product);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
+                    
 
         /// <summary>
         /// Returns whole list of products from db
@@ -59,7 +68,6 @@ namespace RestApiDemo.Controllers.v1
             if (productToUpdate == null)
                 return BadRequest();
 
-            //return NoContent();
             return Accepted();
         }
 
