@@ -45,7 +45,7 @@ namespace RestApiDemo.Controllers.v1
                     
 
         /// <summary>
-        /// Returns whole list of products from db
+        /// Returns whole list of products
         /// </summary>
         /// <returns></returns>
         [HttpGet("products")]

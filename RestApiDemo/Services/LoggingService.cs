@@ -3,7 +3,7 @@
 namespace RestApiDemo.Services
 {
     /// <summary>
-    /// Helper class for logging on the production in the future..
+    /// Helper class for logging (for deployment on prod..)
     /// </summary>
     public class LoggingService : ILoggingService
     {

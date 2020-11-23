@@ -178,7 +178,7 @@ namespace RestApiDemo.Test
                 Assert.Equal(expectedProducts[i].Description, receivedProducts[i].Description);
             }
         }
-
+                
         [Theory]
         [InlineData(4, 10)]
         public async Task GetAllPagedAsync_ShouldReturnEmptyList_WhenOutOfDataLimits(int pageNr, int pageSize)
@@ -196,7 +196,7 @@ namespace RestApiDemo.Test
 
         [Theory]
         [InlineData(1, 2)]
-        public async Task GetAllPagedAsync_ShouldReturnEmptyList_WhenThereAreNoData(int pageNr, int pageSize)
+        public async Task GetAllPagedAsync_ShouldReturnEmptyList_WhenThereAreNoDataInDb(int pageNr, int pageSize)
         {
             //arrange
             var expectedProducts = new List<ProductDto>();

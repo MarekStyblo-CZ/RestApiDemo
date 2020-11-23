@@ -48,7 +48,7 @@
         </member>
         <member name="M:RestApiDemo.Controllers.v1.ProductsController.GetProducts">
             <summary>
-            Returns whole list of products from db
+            Returns whole list of products
             </summary>
             <returns></returns>
         </member>
